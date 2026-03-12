@@ -1,0 +1,116 @@
+/* ===== ESTRUCTURA GENERAL ===== */
+
+.audio-category-page {
+
+  min-height: 100vh;
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* ===== OVERLAY OSCURO ===== */
+
+.audio-category-overlay {
+
+  width: 100%;
+  min-height: 100vh;
+
+  background: rgba(40,40,40,0.55);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* ===== CONTENIDO ===== */
+
+.audio-category-content {
+
+  max-width: 900px;
+
+  padding: 80px 20px;
+
+  text-align: center;
+
+  color: white;
+}
+
+
+/* ===== TITULO ===== */
+
+.audio-category-title {
+
+  font-size: 3rem;
+
+  color: var(--color-primary);
+
+  margin-bottom: 20px;
+
+  font-weight: 700;
+}
+
+
+/* ===== DESCRIPCION ===== */
+
+.audio-category-description {
+
+  font-size: 18px;
+
+  color: #f1f1f1;
+
+  max-width: 700px;
+
+  margin: 0 auto;
+}
+
+
+/* ===== TEXTO PROXIMAMENTE ===== */
+
+.audio-category-coming {
+
+  margin-top: 40px;
+
+  color: var(--color-blue);
+
+  font-weight: 500;
+}
+
+
+/* ===== FONDOS DE LAS PAGINAS ===== */
+
+
+/* HISTORIAS DE CALLE */
+
+.bg-habitantesCalle {
+  background-image: url("../assets/images/habitantesCalle.jpg");
+}
+
+
+/* ANIMALES ABANDONADOS */
+
+.bg-animales {
+  background-image: url("../assets/images/animales.jpg");
+}
+
+
+/* NIÑOS CON CANCER */
+
+.bg-niños {
+  background-image: url("../assets/images/niños.jpg");
+}
+
+
+/* ADULTOS MAYORES */
+
+.bg-abuelos {
+  background-image: url("../assets/images/abuelos.jpg");
+}

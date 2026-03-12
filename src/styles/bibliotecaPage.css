@@ -1,0 +1,29 @@
+.biblioteca-page {
+
+  min-height: 100vh;
+
+  background-image: url("../assets/images/biblioteca-bg.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  position: relative;
+}
+
+
+/* overlay gris urbano */
+
+.biblioteca-page::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(40,40,40,0.55);
+}
+
+
+/* contenido encima */
+
+.biblioteca-page > * {
+  position: relative;
+  z-index: 2;
+}

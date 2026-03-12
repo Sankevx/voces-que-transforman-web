@@ -1,0 +1,23 @@
+.impact-section {
+  padding: 80px 0;
+  background-color: var(--color-background);
+}
+
+.impact-title {
+  text-align: center;
+  color: var(--color-primary);
+  margin-bottom: 50px;
+  font-weight: 700;
+}
+
+.impact-card {
+  border: none;
+  text-align: center;
+  padding: 20px;
+  border-radius: 12px;
+  transition: transform 0.3s ease;
+}
+
+.impact-card:hover {
+  transform: translateY(-5px);
+}

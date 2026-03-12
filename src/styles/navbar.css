@@ -1,0 +1,91 @@
+/* ===== NAVBAR GENERAL ===== */
+
+.custom-navbar {
+  background: linear-gradient(
+    90deg,
+    var(--color-primary),
+    var(--color-blue)
+  );
+  box-shadow: 0 4px 15px rgba(0,0,0,0.12);
+  padding: 12px 0;
+}
+
+
+/* ===== LOGO ===== */
+
+.navbar-logo {
+  object-fit: contain;
+}
+
+
+/* ===== TITULO ===== */
+
+.navbar-brand-text {
+  font-weight: bold;
+  color: white !important;
+  font-size: 20px;
+  letter-spacing: 0.5px;
+}
+
+
+/* ===== LINKS ===== */
+
+.nav-link-custom {
+  font-weight: 500;
+  margin: 0 12px;
+  color: white !important;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+
+/* ===== HOVER LINKS ===== */
+
+.nav-link-custom:hover {
+  color: var(--color-green) !important;
+}
+
+
+/* ===== LINEA ANIMADA ===== */
+
+.nav-link-custom::after {
+  content: "";
+  position: absolute;
+  width: 0%;
+  height: 2px;
+  bottom: -4px;
+  left: 0;
+  background-color: var(--color-green);
+  transition: width 0.3s ease;
+}
+
+.nav-link-custom:hover::after {
+  width: 100%;
+}
+
+
+/* ===== BUSCADOR ===== */
+
+.search-input {
+  border-radius: 20px;
+  padding-left: 15px;
+  border: none;
+}
+
+
+/* ===== BOTON BUSCAR ===== */
+
+.search-button {
+  border-radius: 20px;
+  background-color: var(--color-green);
+  border: none;
+  color: white;
+  padding: 6px 18px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.search-button:hover {
+  background-color: white;
+  color: var(--color-primary);
+}

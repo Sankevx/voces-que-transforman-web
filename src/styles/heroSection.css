@@ -1,0 +1,77 @@
+/* HERO SECTION */
+
+.hero-container {
+  width: 100%;
+  height: 100vh;
+
+  background-image: url("../assets/images/fondo pagina.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin: 0;
+  padding: 0;
+
+  position: relative;
+}
+
+
+/* CAPA OSCURA PARA LEER EL TEXTO */
+
+.hero-container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+}
+
+
+/* CONTENIDO */
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  color: white;
+}
+
+
+/* TITULO */
+
+.hero-title {
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+
+/* DESCRIPCIÓN */
+
+.hero-description {
+  font-size: 1.3rem;
+  max-width: 700px;
+  margin: auto;
+}
+
+
+/* BOTÓN */
+
+.hero-button {
+  margin-top: 25px;
+  padding: 12px 30px;
+  border-radius: 50px;
+  background-color: var(--color-primary);
+  border: none;
+  color: white;
+  font-size: 18px;
+  transition: 0.3s;
+}
+
+.hero-button:hover {
+  background-color: var(--color-green);
+  transform: translateY(-2px);
+}
