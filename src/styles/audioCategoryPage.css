@@ -1,116 +1,277 @@
-/* ===== ESTRUCTURA GENERAL ===== */
-
 .audio-category-page {
-
   min-height: 100vh;
-
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-
   position: relative;
-
   display: flex;
   align-items: center;
   justify-content: center;
 }
-
-
-/* ===== OVERLAY OSCURO ===== */
 
 .audio-category-overlay {
-
   width: 100%;
   min-height: 100vh;
-
   background: rgba(40,40,40,0.55);
-
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-
-/* ===== CONTENIDO ===== */
-
 .audio-category-content {
-
-  max-width: 900px;
-
+  max-width: 1100px;
   padding: 80px 20px;
-
   text-align: center;
-
   color: white;
 }
 
-
-/* ===== TITULO ===== */
-
 .audio-category-title {
-
   font-size: 3rem;
-
   color: var(--color-primary);
-
   margin-bottom: 20px;
-
   font-weight: 700;
 }
 
-
-/* ===== DESCRIPCION ===== */
-
 .audio-category-description {
-
   font-size: 18px;
-
   color: #f1f1f1;
-
   max-width: 700px;
-
   margin: 0 auto;
 }
 
-
-/* ===== TEXTO PROXIMAMENTE ===== */
-
 .audio-category-coming {
-
   margin-top: 40px;
-
   color: var(--color-blue);
-
   font-weight: 500;
 }
 
+.audio-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(320px,1fr));
+  gap: 30px;
+  margin-top: 50px;
+}
 
-/* ===== FONDOS DE LAS PAGINAS ===== */
+.audio-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+  transition: transform .2s;
+  text-align: left;
+}
 
+.audio-card:hover {
+  transform: translateY(-6px);
+}
 
-/* HISTORIAS DE CALLE */
+.audio-cover {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.audio-info {
+  padding: 20px;
+}
+
+.audio-info h3 {
+  margin-bottom: 10px;
+  font-size: 20px;
+  color: #222;
+}
+
+.audio-info p {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 15px;
+}
+
+.audio-info audio {
+  width: 100%;
+}
+
+.delete-audio-btn {
+  margin-top: 12px;
+  background: #d33;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.delete-audio-btn:hover {
+  background: #a00;
+}
 
 .bg-habitantesCalle {
   background-image: url("../assets/images/habitantesCalle.jpg");
 }
 
-
-/* ANIMALES ABANDONADOS */
-
 .bg-animales {
   background-image: url("../assets/images/animales.jpg");
 }
-
-
-/* NIÑOS CON CANCER */
 
 .bg-niños {
   background-image: url("../assets/images/niños.jpg");
 }
 
-
-/* ADULTOS MAYORES */
-
 .bg-abuelos {
   background-image: url("../assets/images/abuelos.jpg");
+}
+.upload-audio-box{
+
+  background:white;
+  padding:25px;
+  border-radius:10px;
+  max-width:500px;
+  margin:40px auto;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+
+}
+
+.upload-audio-box input,
+.upload-audio-box textarea{
+
+  padding:10px;
+  border-radius:6px;
+  border:1px solid #ccc;
+
+}
+
+.upload-audio-box button{
+
+  background:#ff4b8b;
+  color:white;
+  border:none;
+  padding:10px;
+  border-radius:6px;
+  cursor:pointer;
+
+}
+.admin-panel{
+
+  max-width:1100px;
+  margin:auto;
+  padding:40px;
+
+}
+
+.admin-audios{
+
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:20px;
+
+}
+
+.admin-audio-card{
+
+  background:white;
+  padding:20px;
+  border-radius:12px;
+  box-shadow:0 4px 12px rgba(0,0,0,0.1);
+
+}
+
+.admin-audio-card button{
+
+  margin-top:10px;
+  background:red;
+  color:white;
+  border:none;
+  padding:8px;
+  border-radius:6px;
+  cursor:pointer;
+
+}
+
+.upload-audio-box{
+
+  background:white;
+  padding:25px;
+  border-radius:10px;
+  max-width:500px;
+  margin:30px auto;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+
+}
+
+.audio-list{
+
+  display:flex;
+  flex-direction:column;
+  gap:25px;
+  margin-top:40px;
+
+}
+
+.audio-card{
+
+  background:white;
+  border-radius:12px;
+  padding:20px;
+  box-shadow:0 4px 12px rgba(0,0,0,0.15);
+
+}
+
+.audio-card-top{
+
+  display:flex;
+  gap:20px;
+  align-items:flex-start;
+
+}
+
+.audio-cover{
+
+  width:120px;
+  height:120px;
+  object-fit:cover;
+  border-radius:10px;
+
+}
+
+.audio-info{
+
+  flex:1;
+
+}
+
+.audio-info h3{
+
+  margin:0;
+  font-size:20px;
+
+}
+
+.audio-info p{
+
+  margin-top:8px;
+  color:#555;
+
+}
+
+.audio-player{
+
+  width:100%;
+  margin-top:15px;
+
+}
+
+.delete-audio-btn{
+
+  margin-top:10px;
+  background:#d33;
+  color:white;
+  border:none;
+  padding:8px 12px;
+  border-radius:6px;
+  cursor:pointer;
+
 }

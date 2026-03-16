@@ -1,41 +1,66 @@
 import { useState } from "react";
 import { supabase } from "../../lib/supabaseClient";
 
-function UploadAudio({ categoria }) {
+function UploadAudio() {
 
   const [titulo,setTitulo] = useState("");
   const [descripcion,setDescripcion] = useState("");
-  const [file,setFile] = useState(null);
+  const [categoria,setCategoria] = useState("habitantes");
+  const [audioFile,setAudioFile] = useState(null);
+  const [imagenFile,setImagenFile] = useState(null);
 
   const subirAudio = async () => {
 
-    if(!file) {
+    if(!audioFile){
       alert("Selecciona un audio");
       return;
     }
 
-    const fileName = Date.now() + "-" + file.name;
+    const audioNombre = Date.now() + "-" + audioFile.name;
 
-    const { error } = await supabase.storage
+    const { error: audioError } = await supabase.storage
       .from("audios")
-      .upload(fileName,file);
+      .upload(audioNombre,audioFile);
 
-    if(error){
-      console.log(error);
+    if(audioError){
+      console.log(audioError);
       alert("Error subiendo audio");
       return;
     }
 
-    const { data } = supabase.storage
+    const { data: audioData } = supabase.storage
       .from("audios")
-      .getPublicUrl(fileName);
+      .getPublicUrl(audioNombre);
+
+    let imagenUrl = null;
+
+    if(imagenFile){
+
+      const imagenNombre = Date.now() + "-" + imagenFile.name;
+
+      const { error: imgError } = await supabase.storage
+        .from("audios")
+        .upload(imagenNombre,imagenFile);
+
+      if(!imgError){
+
+        const { data: imgData } = supabase.storage
+          .from("audios")
+          .getPublicUrl(imagenNombre);
+
+        imagenUrl = imgData.publicUrl;
+
+      }
+
+    }
 
     await supabase.from("audios").insert([
       {
-        titulo: titulo,
-        descripcion: descripcion,
-        categoria: categoria,
-        audio_url: data.publicUrl
+        titulo,
+        descripcion,
+        categoria,
+        audio_url: audioData.publicUrl,
+        imagen_url: imagenUrl
       }
     ]);
 
@@ -45,9 +70,9 @@ function UploadAudio({ categoria }) {
 
   return (
 
-    <div>
+    <div className="upload-audio-box">
 
-      <h3>Subir audio</h3>
+      <h3>Subir nuevo podcast</h3>
 
       <input
         type="text"
@@ -55,16 +80,30 @@ function UploadAudio({ categoria }) {
         onChange={(e)=>setTitulo(e.target.value)}
       />
 
-      <input
-        type="text"
+      <textarea
         placeholder="Descripción"
         onChange={(e)=>setDescripcion(e.target.value)}
       />
 
+      <select onChange={(e)=>setCategoria(e.target.value)}>
+
+        <option value="habitantes">Habitantes de calle</option>
+        <option value="animales">Animales abandonados</option>
+        <option value="niños">Niños con cáncer</option>
+        <option value="abuelos">Adultos mayores</option>
+
+      </select>
+
       <input
         type="file"
         accept="audio/*"
-        onChange={(e)=>setFile(e.target.files[0])}
+        onChange={(e)=>setAudioFile(e.target.files[0])}
+      />
+
+      <input
+        type="file"
+        accept="image/*"
+        onChange={(e)=>setImagenFile(e.target.files[0])}
       />
 
       <button onClick={subirAudio}>

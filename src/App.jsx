@@ -11,30 +11,55 @@ import HistoriasCalle from "./pages/HistoriasCalle";
 import HuellasEsperanza from "./pages/HuellasEsperanza";
 import PequenosGuerreros from "./pages/PequenosGuerreros";
 import VocesSabiduria from "./pages/VocesSabiduria";
+import AdminPanel from "./pages/AdminPanel";
+
+import AdminRoute from "./components/AdminRoute";
+import GlobalAudioPlayer from "./components/audio/GlobalAudioPlayer";
 
 function App() {
+
   return (
+
     <>
+
+      {/* Navbar visible en todo el sitio */}
       <CustomNavbar />
 
+      {/* Rutas del sitio */}
       <Routes>
 
-        {/* Página principal */}
         <Route path="/" element={<Home />} />
         <Route path="/biblioteca" element={<Biblioteca />} />
         <Route path="/nosotros" element={<Nosotros />} />
-        
-        {/* Secciones de la biblioteca */}
+
+        {/* Secciones de podcast */}
         <Route path="/voces-sabiduria" element={<VocesSabiduria />} />
         <Route path="/historias-calle" element={<HistoriasCalle />} />
         <Route path="/huellas-esperanza" element={<HuellasEsperanza />} />
         <Route path="/pequenos-guerreros" element={<PequenosGuerreros />} />
 
+        {/* Panel admin protegido */}
+        <Route
+          path="/admin"
+          element={
+            <AdminRoute>
+              <AdminPanel />
+            </AdminRoute>
+          }
+        />
+
       </Routes>
 
+      {/* Reproductor global (SIEMPRE ACTIVO) */}
+      <GlobalAudioPlayer />
+
+      {/* Footer global */}
       <Footer />
+
     </>
+
   );
+
 }
 
 export default App;
