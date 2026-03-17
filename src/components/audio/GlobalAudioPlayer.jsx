@@ -1,40 +1,70 @@
+import { useEffect, useState } from "react";
 import { useAudioPlayer } from "../../context/AudioPlayerContext";
 
 function GlobalAudioPlayer() {
 
-  const { currentAudio, audioRef } = useAudioPlayer();
+  const { currentAudio, isPlaying, toggleAudio, audioRef } = useAudioPlayer();
+
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
+
+  useEffect(() => {
+
+    const audio = audioRef.current;
+
+    if (!audio || !currentAudio) return;
+
+    audio.src = currentAudio.audio_url;
+    audio.currentTime = 0;
+
+    audio.play().then(() => {}).catch(()=>{});
+
+  }, [currentAudio]);
+
+  useEffect(() => {
+
+    const audio = audioRef.current;
+
+    if (!audio) return;
+
+    const updateTime = () => setCurrentTime(audio.currentTime);
+    const setMeta = () => setDuration(audio.duration || 0);
+
+    audio.addEventListener("timeupdate", updateTime);
+    audio.addEventListener("loadedmetadata", setMeta);
+
+    return () => {
+      audio.removeEventListener("timeupdate", updateTime);
+      audio.removeEventListener("loadedmetadata", setMeta);
+    };
+
+  }, []);
 
   if (!currentAudio) return null;
 
-  const imagen =
-    currentAudio.imagen_url ||
-    "/src/assets/images/podcast-default.jpg";
-
   return (
-
     <div className="global-player">
 
-      <img
-        src={imagen}
-        className="global-player-cover"
-        alt="portada podcast"
+      <h4>{currentAudio.titulo}</h4>
+
+      <button onClick={toggleAudio}>
+        {isPlaying ? "⏸" : "▶"}
+      </button>
+
+      <input
+        type="range"
+        min="0"
+        max={duration}
+        value={currentTime}
+        onChange={(e)=>{
+          audioRef.current.currentTime = e.target.value;
+          setCurrentTime(e.target.value);
+        }}
       />
 
-      <div className="global-player-info">
-
-        <h4>{currentAudio.titulo}</h4>
-
-        <audio
-          ref={audioRef}
-          controls
-          preload="metadata"
-          src={currentAudio.audio_url}
-        />
-
-      </div>
+      <audio ref={audioRef} />
 
     </div>
-
   );
 
 }

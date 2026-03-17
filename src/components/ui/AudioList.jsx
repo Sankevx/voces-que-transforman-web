@@ -11,12 +11,24 @@ function AudioList({ categoria, isAdmin }) {
 
   const cargarAudios = async () => {
 
+    console.log("Categoria recibida:", categoria);
+
+    // Mapa para evitar errores de categorías
+    const categoriasMap = {
+      habitantes: "habitantesCalle",
+      animales: "animales",
+      ninos: "ninos",
+      abuelos: "abuelos"
+    };
+
+    const categoriaNormalizada = categoriasMap[categoria] || categoria;
+
     setLoading(true);
 
     const { data, error } = await supabase
       .from("audios")
       .select("*")
-      .eq("categoria", categoria)
+      .eq("categoria", categoriaNormalizada)
       .order("created_at", { ascending: false });
 
     if (error) {
@@ -30,7 +42,9 @@ function AudioList({ categoria, isAdmin }) {
   };
 
   useEffect(() => {
-    cargarAudios();
+    if (categoria) {
+      cargarAudios();
+    }
   }, [categoria]);
 
   const eliminarAudio = async (id) => {
@@ -45,10 +59,12 @@ function AudioList({ categoria, isAdmin }) {
 
     if (error) {
       console.error("Error eliminando audio:", error);
+      alert("Error eliminando audio");
       return;
     }
 
-    cargarAudios();
+    // Actualizar lista sin recargar
+    setAudios(prev => prev.filter(audio => audio.id !== id));
   };
 
   if (loading) return <p>Cargando audios...</p>;

@@ -5,7 +5,7 @@ function UploadAudio() {
 
   const [titulo,setTitulo] = useState("");
   const [descripcion,setDescripcion] = useState("");
-  const [categoria,setCategoria] = useState("habitantes");
+  const [categoria,setCategoria] = useState("habitantesCalle");
   const [audioFile,setAudioFile] = useState(null);
   const [imagenFile,setImagenFile] = useState(null);
 
@@ -87,9 +87,9 @@ function UploadAudio() {
 
       <select onChange={(e)=>setCategoria(e.target.value)}>
 
-        <option value="habitantes">Habitantes de calle</option>
+        <option value="habitantesCalle">Habitantes de calle</option>
         <option value="animales">Animales abandonados</option>
-        <option value="niños">Niños con cáncer</option>
+        <option value="ninos">Niños con cáncer</option>
         <option value="abuelos">Adultos mayores</option>
 
       </select>

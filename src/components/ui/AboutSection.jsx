@@ -206,7 +206,7 @@ const AboutSection = () => {
           transformar vidas en diferentes comunidades de Bogotá.
         </p>
 
-        <Link to="/contacto">
+        <Link to="/voluntarios">
           <button className="cta-btn">
             Quiero ser voluntario
           </button>

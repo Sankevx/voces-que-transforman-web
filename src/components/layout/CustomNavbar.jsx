@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import logo from "../../assets/icons/Transformando1.png";
 import "../../styles/navbar.css";
 
+
+
 const CustomNavbar = () => {
   return (
     <Navbar expand="lg" fixed="top" className="custom-navbar">
@@ -38,9 +40,13 @@ const CustomNavbar = () => {
               NOSOTROS
             </Nav.Link>
 
-            <Nav.Link as={Link} to="/contacto" className="nav-link-custom">
-              CONTACTO
+            <Nav.Link as={Link} to="/voluntarios" className="nav-link-custom">
+              VOLUNTARIOS
             </Nav.Link>
+
+            <Link to="/login">
+               <button>Iniciar sesión</button>
+            </Link>
 
           </Nav>
 

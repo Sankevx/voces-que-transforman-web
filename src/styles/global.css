@@ -22,69 +22,106 @@ body {
   color: var(--color-dark);
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
-.play-audio-btn{
-
-background:#ff4fa3;;
-color:white;
-
-border:none;
-
-padding:8px 18px;
-
-border-radius:30px;
-
-cursor:pointer;
-
-margin-top:10px;
-
-font-weight:600;
-
-transition:0.2s;
-
+.play-audio-btn {
+  background: var(--color-primary);
+  color: white;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 30px;
+  cursor: pointer;
+  margin-top: 10px;
+  font-weight: 600;
+  transition: 0.2s;
 }
 
-.play-audio-btn:hover{
-
-transform:scale(1.05);
-
+.play-audio-btn:hover {
+  transform: scale(1.05);
+  background: var(--color-primary-light);
 }
-.global-player{
+/* ===== PLAYER GLOBAL PRO ===== */
 
-position:fixed;
-bottom:0;
-left:0;
+.global-player {
+  position: fixed;
+  bottom: 0;
+  left: 0;
 
-width:100%;
-background:#111;
-color:white;
+  width: 100%;
+  background: #111;
+  color: white;
 
-display:flex;
-align-items:center;
-gap:20px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
 
-padding:10px 20px;
+  padding: 12px 20px;
 
-z-index:9999;
-
-}
-
-.global-player-cover{
-
-width:60px;
-height:60px;
-object-fit:cover;
-border-radius:8px;
-
+  z-index: 9999;
+  box-shadow: 0 -2px 10px rgba(0,0,0,0.3);
 }
 
-.global-player-info{
-
-flex:1;
-
+/* Imagen */
+.global-player-cover {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 10px;
 }
 
-.global-player audio{
+/* Info */
+.global-player-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
 
-width:100%;
+/* Controles */
+.player-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
 
+/* Botón play */
+.player-controls button {
+  background: var(--color-primary);
+  border: none;
+  color: white;
+  border-radius: 50%;
+  width: 38px;
+  height: 38px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: 0.2s;
+}
+
+.player-controls button:hover {
+  transform: scale(1.1);
+  background: var(--color-primary-light);
+}
+
+/* Barra de progreso */
+.progress-bar {
+  flex: 1;
+  height: 5px;
+  cursor: pointer;
+  appearance: none;
+  background: #444;
+  border-radius: 5px;
+}
+
+/* Thumb */
+.progress-bar::-webkit-slider-thumb {
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  background: var(--color-primary);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+/* Tiempo */
+.player-controls span {
+  font-size: 12px;
+  color: #ccc;
 }

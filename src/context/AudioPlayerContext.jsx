@@ -7,39 +7,42 @@ export const useAudioPlayer = () => useContext(AudioPlayerContext);
 export function AudioPlayerProvider({ children }) {
 
   const [currentAudio, setCurrentAudio] = useState(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+
   const audioRef = useRef(null);
 
   const playAudio = (audio) => {
-
     setCurrentAudio(audio);
+  };
 
-    setTimeout(() => {
+  const toggleAudio = () => {
 
-      if (audioRef.current) {
+    const audio = audioRef.current;
 
-        audioRef.current.src = audio.audio_url;
-        audioRef.current.play();
+    if (!audio) return;
 
-      }
-
-    }, 100);
+    if (audio.paused) {
+      audio.play();
+      setIsPlaying(true);
+    } else {
+      audio.pause();
+      setIsPlaying(false);
+    }
 
   };
 
   return (
-
     <AudioPlayerContext.Provider
       value={{
         currentAudio,
+        isPlaying,
         playAudio,
+        toggleAudio,
         audioRef
       }}
     >
-
       {children}
-
     </AudioPlayerContext.Provider>
-
   );
 
 }

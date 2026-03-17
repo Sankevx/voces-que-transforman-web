@@ -1,0 +1,93 @@
+.voluntarios-section {
+  padding: 100px 0;
+  background: #f7f9fc;
+}
+
+.voluntarios-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.voluntarios-subtitle {
+  text-align: center;
+  max-width: 700px;
+  margin: 10px auto 50px;
+  color: #666;
+}
+
+/* CARDS */
+.vol-card {
+  border: none;
+  border-radius: 16px;
+  padding: 30px;
+  background: #fff;
+  transition: all 0.35s ease;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  height: 100%;
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+/* Animación al aparecer */
+.vol-card.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Hover PRO */
+.vol-card:hover {
+  transform: translateY(-12px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+}
+
+/* ICONOS */
+.vol-icon {
+  font-size: 35px;
+  color: var(--color-primary);
+  margin-bottom: 15px;
+  transition: transform 0.3s ease;
+}
+
+.vol-card:hover .vol-icon {
+  transform: rotate(10deg) scale(1.2);
+}
+
+/* LISTAS */
+.vol-card ul {
+  padding-left: 18px;
+}
+
+.vol-card li {
+  margin-bottom: 8px;
+  transition: transform 0.2s ease;
+}
+
+.vol-card li:hover {
+  transform: translateX(5px);
+}
+
+/* FAQ */
+.vol-faq {
+  margin-top: 60px;
+}
+
+.vol-faq h5 {
+  font-weight: 600;
+}
+
+/* STATS estilo impact */
+.vol-stats {
+  margin-top: 80px;
+  text-align: center;
+}
+
+.vol-stat-box h3 {
+  font-size: 2.3rem;
+  color: var(--color-primary);
+  font-weight: bold;
+}
+
+.vol-stat-box p {
+  color: #666;
+}

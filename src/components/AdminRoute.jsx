@@ -4,48 +4,69 @@ import { Navigate } from "react-router-dom";
 
 function AdminRoute({ children }) {
 
-  const [loading,setLoading] = useState(true);
-  const [isAdmin,setIsAdmin] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [user, setUser] = useState(null);
 
-  useEffect(()=>{
+  useEffect(() => {
 
-    const checkAdmin = async ()=>{
+    const checkAdmin = async () => {
 
-      const { data:{user} } = await supabase.auth.getUser();
+      try {
+        const { data: { user } } = await supabase.auth.getUser();
 
-      if(!user){
-        setLoading(false);
-        return;
-      }
+        // ❌ No hay sesión
+        if (!user) {
+          setUser(null);
+          setLoading(false);
+          return;
+        }
 
-      const { data } = await supabase
-        .from("profiles")
-        .select("is_admin")
-        .eq("id",user.id)
-        .single();
+        setUser(user);
 
-      if(data?.is_admin){
-        setIsAdmin(true);
+        // 🔍 Consultar rol
+        const { data, error } = await supabase
+          .from("profiles")
+          .select("is_admin")
+          .eq("id", user.id)
+          .single();
+
+        if (error) {
+          console.error("Error obteniendo perfil:", error);
+          setLoading(false);
+          return;
+        }
+
+        setIsAdmin(!!data?.is_admin);
+
+      } catch (err) {
+        console.error("Error general:", err);
       }
 
       setLoading(false);
-
     };
 
     checkAdmin();
 
-  },[]);
+  }, []);
 
-  if(loading){
+  // ⏳ Mientras carga
+  if (loading) {
     return <p>Verificando permisos...</p>;
   }
 
-  if(!isAdmin){
-    return <Navigate to="/" />;
+  // 🔒 No logueado → login
+  if (!user) {
+    return <Navigate to="/login" />;
   }
 
-  return children;
+  // 🔒 No admin → home o biblioteca
+  if (!isAdmin) {
+    return <Navigate to="/biblioteca" />;
+  }
 
+  // ✅ Admin autorizado
+  return children;
 }
 
 export default AdminRoute;
