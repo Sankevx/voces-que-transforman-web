@@ -1,29 +1,277 @@
-.about-section {
-  padding: 80px 0;
+.about-wrapper{
+width:100%;
+padding-bottom:60px;
 }
 
-.about-title {
-  color: var(--color-primary);
-  font-weight: 700;
-  margin-bottom: 20px;
+.about-hero{
+min-height:45vh;
+background-size:cover;
+background-position:center;
+position:relative;
+margin-bottom:30px;
+display:flex;
+align-items:center;
 }
 
-.about-text {
-  color: var(--color-gray);
-  font-size: 18px;
+.about-overlay{
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(26,26,26,0.75);
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+color:white;
+padding:10px 20px;
 }
 
-.about-btn {
-  background-color: var(--color-blue);
-  border: none;
-  margin-top: 15px;
+.about-overlay h1{
+font-size:3.2rem;
+font-weight:700;
+margin-bottom:20px;
 }
 
-.about-btn:hover {
-  background-color: var(--color-green);
+.about-overlay p{
+max-width:650px;
+font-size:1.1rem;
+opacity:0.9;
+line-height:1.6;
 }
 
-.about-image {
-  max-width: 100%;
-  border-radius: 10px;
+.about-section{
+padding:70px 0;
+margin-top:0;
+}
+
+.about-section .row{
+margin-bottom:80px;
+}
+
+.about-card{
+background:white;
+padding:45px;
+border-radius:12px;
+margin-right:30px;
+box-shadow:0 12px 30px rgba(0,0,0,0.08);
+border-left:6px solid var(--color-primary);
+}
+
+.about-card h2{
+font-weight:700;
+margin-bottom:25px;
+color:var(--color-primary);
+}
+
+.about-card p{
+line-height:1.7;
+margin-bottom:18px;
+}
+
+.about-carousel{
+border-radius:12px;
+overflow:hidden;
+box-shadow:0 15px 35px rgba(0,0,0,0.12);
+}
+
+.about-image{
+height:380px;
+object-fit:cover;
+}
+
+.about-values{
+margin-top:120px;
+justify-content:center;
+}
+
+.value-box{
+text-align:center;
+padding:45px 30px;
+background:white;
+border-radius:12px;
+box-shadow:0 10px 25px rgba(0,0,0,0.07);
+transition:all 0.3s ease;
+height:100%;
+}
+
+.value-box:hover{
+transform:translateY(-6px);
+box-shadow:0 18px 40px rgba(0,0,0,0.12);
+}
+
+.value-box h4{
+margin-top:15px;
+font-weight:600;
+}
+
+.value-box p{
+font-size:0.95rem;
+margin-top:10px;
+}
+
+.value-icon{
+font-size:42px;
+margin-bottom:15px;
+color:var(--color-blue);
+}
+
+.value-box:nth-child(2) .value-icon{
+color:var(--color-green);
+}
+
+.value-box:nth-child(3) .value-icon{
+color:var(--color-primary);
+}
+
+.about-impact{
+margin-top:120px;
+background:linear-gradient(135deg,var(--color-blue),var(--color-primary));
+color:white;
+padding:70px 30px;
+border-radius:12px;
+box-shadow:0 15px 35px rgba(0,0,0,0.1);
+}
+
+.about-impact .col-md-3{
+padding:25px;
+}
+
+.about-impact h2{
+font-size:42px;
+font-weight:700;
+margin-bottom:5px;
+}
+
+.about-impact p{
+font-size:1rem;
+opacity:0.9;
+}
+
+.about-section p{
+color:var(--color-gray);
+}
+
+@media (max-width:768px){
+
+.about-hero{
+margin-bottom:60px;
+}
+
+.about-overlay h1{
+font-size:2.3rem;
+}
+
+.about-section{
+padding:80px 20px;
+}
+
+.about-card{
+margin-right:0;
+margin-bottom:40px;
+}
+
+.about-image{
+height:250px;
+}
+
+.value-box{
+margin-bottom:25px;
+}
+
+.about-impact{
+margin-top:80px;
+}
+
+}
+
+.about-mision-vision{
+margin-top:90px;
+}
+
+.mv-card{
+background:white;
+padding:35px;
+border-radius:12px;
+box-shadow:0 10px 25px rgba(0,0,0,0.08);
+height:100%;
+}
+
+.mv-card h3{
+color:var(--color-primary);
+margin-bottom:15px;
+}
+
+.about-areas{
+margin-top:120px;
+}
+
+.areas-title{
+margin-bottom:50px;
+font-weight:700;
+}
+
+.area-card{
+background:white;
+padding:25px;
+border-radius:10px;
+box-shadow:0 10px 20px rgba(0,0,0,0.07);
+transition:0.3s;
+}
+
+.area-card:hover{
+transform:translateY(-5px);
+}
+
+.about-cta{
+  margin-top:120px;
+  text-align:center;
+
+  background: linear-gradient(
+    90deg,
+    var(--color-primary),
+    var(--color-blue)
+  );
+
+  color:white;
+  padding:70px 30px;
+  border-radius:12px;
+
+  box-shadow:0 10px 30px rgba(0, 0, 0, 0.12);
+}
+.cta-btn{
+margin-top:20px;
+padding:12px 30px;
+border:none;
+
+background:white;
+color:var(--color-primary);
+font-weight:600;
+border-radius:6px;
+cursor:pointer;
+}
+.about-gallery{
+margin-top:120px;
+text-align:center;
+}
+
+.gallery-title{
+margin-bottom:50px;
+font-weight:700;
+}
+
+.gallery-img{
+width:100%;
+height:250px;
+object-fit:cover;
+border-radius:10px;
+margin-bottom:25px;
+transition:0.3s;
+cursor:pointer;
+}
+
+.gallery-img:hover{
+transform:scale(1.05);
 }

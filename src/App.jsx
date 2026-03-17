@@ -12,6 +12,7 @@ import HuellasEsperanza from "./pages/HuellasEsperanza";
 import PequenosGuerreros from "./pages/PequenosGuerreros";
 import VocesSabiduria from "./pages/VocesSabiduria";
 import AdminPanel from "./pages/AdminPanel";
+import Contact from "./pages/Contact";
 
 import AdminRoute from "./components/AdminRoute";
 import GlobalAudioPlayer from "./components/audio/GlobalAudioPlayer";
@@ -31,6 +32,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/biblioteca" element={<Biblioteca />} />
         <Route path="/nosotros" element={<Nosotros />} />
+        <Route path="/contacto" element={<Contact />} />
 
         {/* Secciones de podcast */}
         <Route path="/voces-sabiduria" element={<VocesSabiduria />} />
