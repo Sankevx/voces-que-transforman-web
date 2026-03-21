@@ -197,23 +197,6 @@ const AboutSection = () => {
           </Col>
 
         </Row>
-      <div className="about-cta">
-
-        <h2>¿Quieres ser parte del cambio?</h2>
-
-        <p>
-          Únete a nuestra comunidad de voluntarios y ayúdanos a
-          transformar vidas en diferentes comunidades de Bogotá.
-        </p>
-
-        <Link to="/voluntarios">
-          <button className="cta-btn">
-            Quiero ser voluntario
-          </button>
-        </Link>
-
-      </div>
-
       </Container>
     </div>
 

@@ -3,69 +3,99 @@ import { supabase } from "../../lib/supabaseClient";
 
 function UploadAudio() {
 
-  const [titulo,setTitulo] = useState("");
-  const [descripcion,setDescripcion] = useState("");
-  const [categoria,setCategoria] = useState("habitantesCalle");
-  const [audioFile,setAudioFile] = useState(null);
-  const [imagenFile,setImagenFile] = useState(null);
+  const [titulo, setTitulo] = useState("");
+  const [descripcion, setDescripcion] = useState("");
+  const [categoria, setCategoria] = useState("habitantesCalle");
+  const [audioFile, setAudioFile] = useState(null);
+  const [imagenFile, setImagenFile] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const subirAudio = async () => {
 
-    if(!audioFile){
+    if (!audioFile) {
       alert("Selecciona un audio");
       return;
     }
 
-    const audioNombre = Date.now() + "-" + audioFile.name;
+    setLoading(true);
 
-    const { error: audioError } = await supabase.storage
-      .from("audios")
-      .upload(audioNombre,audioFile);
+    try {
 
-    if(audioError){
-      console.log(audioError);
-      alert("Error subiendo audio");
-      return;
-    }
+      // 🔥 1. NOMBRE ÚNICO Y LIMPIO
+      const audioNombre = `audios/${Date.now()}-${audioFile.name}`;
 
-    const { data: audioData } = supabase.storage
-      .from("audios")
-      .getPublicUrl(audioNombre);
-
-    let imagenUrl = null;
-
-    if(imagenFile){
-
-      const imagenNombre = Date.now() + "-" + imagenFile.name;
-
-      const { error: imgError } = await supabase.storage
+      // 🔥 2. SUBIR AUDIO
+      const { error: audioError } = await supabase.storage
         .from("audios")
-        .upload(imagenNombre,imagenFile);
+        .upload(audioNombre, audioFile);
 
-      if(!imgError){
-
-        const { data: imgData } = supabase.storage
-          .from("audios")
-          .getPublicUrl(imagenNombre);
-
-        imagenUrl = imgData.publicUrl;
-
+      if (audioError) {
+        console.error(audioError);
+        alert("Error subiendo audio");
+        setLoading(false);
+        return;
       }
 
+      // 🔥 3. OBTENER URL PÚBLICA
+      const { data: audioData } = supabase.storage
+        .from("audios")
+        .getPublicUrl(audioNombre);
+
+      let imagenUrl = null;
+      let imagenPath = null;
+
+      // 🔥 4. SUBIR IMAGEN (SI EXISTE)
+      if (imagenFile) {
+
+        imagenPath = `imagenes/${Date.now()}-${imagenFile.name}`;
+
+        const { error: imgError } = await supabase.storage
+          .from("audios") // mismo bucket (puedes separarlo si quieres)
+          .upload(imagenPath, imagenFile);
+
+        if (!imgError) {
+
+          const { data: imgData } = supabase.storage
+            .from("audios")
+            .getPublicUrl(imagenPath);
+
+          imagenUrl = imgData.publicUrl;
+        }
+      }
+
+      // 🔥 5. GUARDAR TAMBIÉN EL PATH (CLAVE PARA BORRAR BIEN)
+const { error: dbError } = await supabase.from("audios").insert([
+  {
+    titulo,
+    descripcion,
+    categoria,
+    audio_url: audioData.publicUrl,
+    audio_path: audioNombre,
+    imagen_url: imagenUrl,
+    imagen_path: imagenPath
+  }
+]);
+
+if (dbError) {
+  console.error("ERROR BD COMPLETO:", dbError);
+  alert(JSON.stringify(dbError));
+  return;
+}
+
+      alert("Audio subido correctamente");
+
+      // 🔥 LIMPIAR FORMULARIO
+      setTitulo("");
+      setDescripcion("");
+      setCategoria("habitantesCalle");
+      setAudioFile(null);
+      setImagenFile(null);
+
+    } catch (error) {
+      console.error("Error inesperado:", error);
     }
 
-    await supabase.from("audios").insert([
-      {
-        titulo,
-        descripcion,
-        categoria,
-        audio_url: audioData.publicUrl,
-        imagen_url: imagenUrl
-      }
-    ]);
-
-    alert("Audio subido correctamente");
-
+    setLoading(false);
   };
 
   return (
@@ -77,41 +107,43 @@ function UploadAudio() {
       <input
         type="text"
         placeholder="Título"
-        onChange={(e)=>setTitulo(e.target.value)}
+        value={titulo}
+        onChange={(e) => setTitulo(e.target.value)}
       />
 
       <textarea
         placeholder="Descripción"
-        onChange={(e)=>setDescripcion(e.target.value)}
+        value={descripcion}
+        onChange={(e) => setDescripcion(e.target.value)}
       />
 
-      <select onChange={(e)=>setCategoria(e.target.value)}>
-
+      <select
+        value={categoria}
+        onChange={(e) => setCategoria(e.target.value)}
+      >
         <option value="habitantesCalle">Habitantes de calle</option>
         <option value="animales">Animales abandonados</option>
         <option value="ninos">Niños con cáncer</option>
         <option value="abuelos">Adultos mayores</option>
-
       </select>
 
       <input
         type="file"
         accept="audio/*"
-        onChange={(e)=>setAudioFile(e.target.files[0])}
+        onChange={(e) => setAudioFile(e.target.files[0])}
       />
 
       <input
         type="file"
         accept="image/*"
-        onChange={(e)=>setImagenFile(e.target.files[0])}
+        onChange={(e) => setImagenFile(e.target.files[0])}
       />
 
-      <button onClick={subirAudio}>
-        Subir audio
+      <button onClick={subirAudio} disabled={loading}>
+        {loading ? "Subiendo..." : "Subir audio"}
       </button>
 
     </div>
-
   );
 }
 

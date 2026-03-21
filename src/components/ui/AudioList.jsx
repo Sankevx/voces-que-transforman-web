@@ -13,7 +13,6 @@ function AudioList({ categoria, isAdmin }) {
 
     console.log("Categoria recibida:", categoria);
 
-    // Mapa para evitar errores de categorías
     const categoriasMap = {
       habitantes: "habitantesCalle",
       animales: "animales",
@@ -47,24 +46,59 @@ function AudioList({ categoria, isAdmin }) {
     }
   }, [categoria]);
 
-  const eliminarAudio = async (id) => {
+  // 🔥 FUNCIÓN MEJORADA
+  const eliminarAudio = async (audio) => {
 
     const confirmar = window.confirm("¿Eliminar este audio?");
     if (!confirmar) return;
 
-    const { error } = await supabase
-      .from("audios")
-      .delete()
-      .eq("id", id);
+    try {
+      // 1. Eliminar audio del storage
+      if (audio.audio_url) {
 
-    if (error) {
-      console.error("Error eliminando audio:", error);
-      alert("Error eliminando audio");
-      return;
+       await supabase.storage
+          .from("audios")
+          .remove([audio.audio_path]);
+
+        const { error: storageError } = await supabase.storage
+          .from("audios") // ⚠️ nombre del bucket
+          .remove([nombreArchivo]);
+
+        if (storageError) {
+          console.error("Error eliminando archivo de audio:", storageError);
+        }
+      }
+
+      // 2. Eliminar imagen del storage (opcional pero PRO)
+      if (audio.imagen_path) {
+
+        const { error: imageError } = await supabase.storage
+          .from("audios") // ⚠️ usa el mismo bucket donde guardaste la imagen
+          .remove([audio.imagen_path]);
+
+        if (imageError) {
+          console.error("Error eliminando imagen:", imageError);
+        }
+      }
+
+      // 3. Eliminar de la base de datos
+      const { error: dbError } = await supabase
+        .from("audios")
+        .delete()
+        .eq("id", audio.id);
+
+      if (dbError) {
+        console.error("Error eliminando audio:", dbError);
+        alert("Error eliminando audio");
+        return;
+      }
+
+      // 4. Actualizar estado sin recargar
+      setAudios(prev => prev.filter(a => a.id !== audio.id));
+
+    } catch (error) {
+      console.error("Error inesperado:", error);
     }
-
-    // Actualizar lista sin recargar
-    setAudios(prev => prev.filter(audio => audio.id !== id));
   };
 
   if (loading) return <p>Cargando audios...</p>;
@@ -110,7 +144,7 @@ function AudioList({ categoria, isAdmin }) {
                 {isAdmin && (
                   <button
                     className="delete-audio-btn"
-                    onClick={() => eliminarAudio(audio.id)}
+                    onClick={() => eliminarAudio(audio)} // 🔥 CAMBIO AQUÍ
                   >
                     Eliminar
                   </button>

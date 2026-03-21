@@ -13,6 +13,7 @@ import PequenosGuerreros from "./pages/PequenosGuerreros";
 import VocesSabiduria from "./pages/VocesSabiduria";
 import AdminPanel from "./pages/AdminPanel";
 import Voluntarios from "./pages/Voluntarios";
+import Resultados from "./pages/Resultados";
 
 import AdminRoute from "./components/AdminRoute";
 import GlobalAudioPlayer from "./components/audio/GlobalAudioPlayer";
@@ -35,7 +36,7 @@ function App() {
         <Route path="/nosotros" element={<Nosotros />} />
         <Route path="/voluntarios" element={<Voluntarios />} />
         <Route path="/login" element={<Auth />} />
-        
+        <Route path="/resultados" element={<Resultados />} />
         {/* Secciones de podcast */}
         <Route path="/voces-sabiduria" element={<VocesSabiduria />} />
         <Route path="/historias-calle" element={<HistoriasCalle />} />
