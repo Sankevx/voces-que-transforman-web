@@ -32,7 +32,7 @@ function Auth() {
     });
 
     if (error) {
-      alert("Correo o contraseña incorrectos");
+      alert(error.message);
       setLoading(false);
       return;
     }
@@ -74,11 +74,12 @@ function Auth() {
 
     setLoading(true);
 
-    const { data, error } = await supabase.auth.signUp({
+    const { error } = await supabase.auth.signUp({
       email,
       password,
       options: {
-        data: { nombre }
+        data: { nombre },
+        emailRedirectTo: `${import.meta.env.VITE_SITE_URL}/auth/callback`
       }
     });
 
@@ -88,9 +89,31 @@ function Auth() {
       return;
     }
 
-    alert("Cuenta creada correctamente");
+    alert("Revisa tu correo y confirma tu cuenta antes de iniciar sesión");
+    setIsLogin(true);
 
-    navigate("/biblioteca");
+    setLoading(false);
+  };
+
+  // 🔑 RECUPERAR CONTRASEÑA
+  const handleRecovery = async () => {
+
+    if (!email) {
+      alert("Ingresa tu correo para recuperar la contraseña");
+      return;
+    }
+
+    setLoading(true);
+
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${import.meta.env.VITE_SITE_URL}/update-password`
+    });
+
+    if (error) {
+      alert(error.message);
+    } else {
+      alert("Revisa tu correo para cambiar tu contraseña");
+    }
 
     setLoading(false);
   };
@@ -102,41 +125,42 @@ function Auth() {
 
         <h2>{isLogin ? "Iniciar sesión" : "Crear cuenta"}</h2>
 
-{/* Nombre solo en registro */}
-{!isLogin && (
-  <input
-    type="text"
-    placeholder="Nombre completo"
-    value={nombre}
-    onChange={(e) => setNombre(e.target.value)}
-  />
-)}
+        {/* Nombre solo en registro */}
+        {!isLogin && (
+          <input
+            type="text"
+            placeholder="Nombre completo"
+            value={nombre}
+            onChange={(e) => setNombre(e.target.value)}
+          />
+        )}
 
-{/* EMAIL (SOLO UNO) */}
-<input
-  type="email"
-  placeholder="Correo electrónico"
-  value={email}
-  onChange={(e) => setEmail(e.target.value)}
-/>
+        {/* EMAIL */}
+        <input
+          type="email"
+          placeholder="Correo electrónico"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
 
-{/* PASSWORD */}
-<input
-  type="password"
-  placeholder="Contraseña"
-  value={password}
-  onChange={(e) => setPassword(e.target.value)}
-/>
+        {/* PASSWORD */}
+        <input
+          type="password"
+          placeholder="Contraseña"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
 
-{/* CONFIRMAR PASSWORD solo en registro */}
-{!isLogin && (
-  <input
-    type="password"
-    placeholder="Confirmar contraseña"
-    value={confirmPassword}
-    onChange={(e) => setConfirmPassword(e.target.value)}
-  />
-)}
+        {/* CONFIRMAR PASSWORD */}
+        {!isLogin && (
+          <input
+            type="password"
+            placeholder="Confirmar contraseña"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+          />
+        )}
+
         <button
           onClick={isLogin ? handleLogin : handleRegister}
           disabled={loading}
@@ -147,6 +171,16 @@ function Auth() {
               ? "Iniciar sesión"
               : "Registrarse"}
         </button>
+
+        {/* 🔥 RECUPERAR CONTRASEÑA */}
+        {isLogin && (
+          <p
+            style={{ cursor: "pointer", color: "#007bff", marginTop: "10px" }}
+            onClick={handleRecovery}
+          >
+            ¿Olvidaste tu contraseña?
+          </p>
+        )}
 
         <p
           className="auth-switch"

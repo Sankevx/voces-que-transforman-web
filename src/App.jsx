@@ -18,6 +18,9 @@ import Resultados from "./pages/Resultados";
 import AdminRoute from "./components/AdminRoute";
 import GlobalAudioPlayer from "./components/audio/GlobalAudioPlayer";
 import Auth from "./pages/Auth";
+import AuthCallback from "./pages/AuthCallback";
+import RecuperarPassword from "./pages/RecuperarPassword";
+import UpdatePassword from "./pages/UpdatePassword";
 
 function App() {
 
@@ -36,7 +39,11 @@ function App() {
         <Route path="/nosotros" element={<Nosotros />} />
         <Route path="/voluntarios" element={<Voluntarios />} />
         <Route path="/login" element={<Auth />} />
+        <Route path="/auth/callback" element={<AuthCallback />} />
         <Route path="/resultados" element={<Resultados />} />
+        <Route path="/recuperar" element={<RecuperarPassword />} />
+        <Route path="/update-password" element={<UpdatePassword />} />
+
         {/* Secciones de podcast */}
         <Route path="/voces-sabiduria" element={<VocesSabiduria />} />
         <Route path="/historias-calle" element={<HistoriasCalle />} />
