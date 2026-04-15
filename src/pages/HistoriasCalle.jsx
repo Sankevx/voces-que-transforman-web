@@ -12,11 +12,11 @@ function HistoriasCalle() {
         title="Historias de Calle"
         description="Relatos de resiliencia y superación de personas que han vivido en la calle."
         backgroundClass="bg-habitantesCalle"
-        categoria="habitantes"
+        categoria="habitantesCalle"
         isAdmin={isAdmin}
       />
 
-      {isAdmin && <UploadAudio categoria="habitantes" />}
+      {isAdmin && <UploadAudio categoria="habitantesCalle" />}
     </>
   );
 }
