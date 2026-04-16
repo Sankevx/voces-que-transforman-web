@@ -16,7 +16,7 @@ function RecuperarPassword() {
     setLoading(true);
 
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: `${import.meta.env.VITE_SITE_URL}/update-password`
+      redirectTo: "http://localhost:5173/update-password"
     });
 
     if (error) {
